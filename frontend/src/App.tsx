@@ -76,6 +76,17 @@ class App extends React.Component <{}, { viewCompleted: Boolean, todoList: TodoI
     );
   };
 
+  renderItems = () => {
+    const { viewCompleted } = this.state;
+    const newItems = this.state.todoList.filter(
+      (item) => item.completed == viewCompleted
+    );
+
+    return newItems.map((item) => {
+
+    });
+  };
+
   render() {
     return (
       <div className="container">
