@@ -33,6 +33,13 @@ interface Props {
   todoItems: string[]
 }
 
+export interface TodoItems {
+  id: number;
+  title: string;
+  description: string;
+  completed: boolean;
+}
+
 class App extends React.Component {
   constructor(props:Props) {
     super(props);
