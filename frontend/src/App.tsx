@@ -41,10 +41,11 @@ export interface TodoItems {
 }
 
 class App extends React.Component {
-  constructor(props:Props) {
+  constructor(props: Props) {
     super(props);
     this.state = {
-      todoItems: todoItems,
+      viewCompleted: false,
+      todoList: todoItems,
     };
   }
 
