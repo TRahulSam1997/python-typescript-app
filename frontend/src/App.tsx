@@ -49,6 +49,13 @@ class App extends React.Component {
     };
   }
 
+  displayCompleted = (status: boolean) => {
+    if (status) {
+      return this.setState({ viewCompleted: true });
+    }
+    return this.setState({ viewCompleted: false });
+  };
+
   render() {
     return (
       <div className="container">
