@@ -83,7 +83,31 @@ class App extends React.Component <{}, { viewCompleted: Boolean, todoList: TodoI
     );
 
     return newItems.map((item) => {
-
+      <li
+        key={item.id}
+        className="list-group-item d-flex justify-content-between align-items-center"
+      >
+       <span
+          className={`todo-title mr-2 ${
+            this.state.viewCompleted ? "completed-todo" : ""
+          }`}
+          title={item.description}
+        >
+          {item.title}
+        </span>
+        <span>
+          <button
+            className="btn btn-secondary mr-2"
+          >
+            Edit
+          </button>
+          <button
+            className="btn btn-danger"
+          >
+            Delete
+          </button>
+        </span>
+      </li>
     });
   };
 
