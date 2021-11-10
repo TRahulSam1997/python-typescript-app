@@ -30,7 +30,8 @@ const todoItems = [
 ];
 
 interface Props {
-  todoItems: string[]
+  viewCompleted: Boolean,
+  todoList: TodoItems[]
 }
 
 export interface TodoItems {
@@ -40,7 +41,7 @@ export interface TodoItems {
   completed: boolean;
 }
 
-class App extends React.Component <{}, { viewCompleted: Boolean, todoList: TodoItems[] }> {
+class App extends React.Component <any, { viewCompleted: Boolean, todoList: TodoItems[] }> {
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -79,15 +80,15 @@ class App extends React.Component <{}, { viewCompleted: Boolean, todoList: TodoI
   renderItems = () => {
     const { viewCompleted } = this.state;
     const newItems = this.state.todoList.filter(
-      (item) => item.completed == viewCompleted
+      (item) => item.completed === viewCompleted
     );
 
-    return newItems.map((item) => {
+    return newItems.map((item) => (
       <li
         key={item.id}
         className="list-group-item d-flex justify-content-between align-items-center"
       >
-       <span
+        <span
           className={`todo-title mr-2 ${
             this.state.viewCompleted ? "completed-todo" : ""
           }`}
@@ -108,7 +109,7 @@ class App extends React.Component <{}, { viewCompleted: Boolean, todoList: TodoI
           </button>
         </span>
       </li>
-    });
+    ));
   };
 
   render() {
