@@ -29,7 +29,7 @@ const todoItems = [
   },
 ];
 
-interface Props {
+export interface Props {
   viewCompleted: Boolean,
   todoList: TodoItems[]
 }
@@ -41,7 +41,7 @@ export interface TodoItems {
   completed: boolean;
 }
 
-class App extends React.Component <any, { viewCompleted: Boolean, todoList: TodoItems[] }> {
+class App extends React.Component <any, Props> {
   constructor(props: Props) {
     super(props);
     this.state = {
