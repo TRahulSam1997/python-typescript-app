@@ -2,6 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import './App.css';
 import Modal from "./components/Modal";
+import axios from "axios";
 
 const todoItems = [
   {
@@ -55,7 +56,7 @@ class App extends React.Component <any, State> {
     super(props);
     this.state = {
       viewCompleted: false,
-      todoList: todoItems,
+      todoList: [],
       modal: false,
       activeItem: {
         title: "",
@@ -65,18 +66,39 @@ class App extends React.Component <any, State> {
     };
   }
 
+  componentDidMount() {
+    this.refreshList();
+  }
+
+  refreshList = () => {
+    axios
+      .get("/api/todos/")
+      .then((res) => this.setState({ todoList: res.data }))
+      .catch((err) => console.log(err));
+  };
+
   toggle = () => {
     this.setState({ modal: !this.state.modal });
   };
 
-  handleSubmit = (item: ActiveItems) => {
+  handleSubmit = (item: TodoItems) => {
     this.toggle();
 
-    alert("save" + JSON.stringify(item));
+    if (item.id) {
+      axios
+        .put(`/api/todos/${item.id}/`, item)
+        .then((res) => this.refreshList());
+      return;
+    }
+    axios
+      .post("/api/todos/", item)
+      .then((res) => this.refreshList());
   };
 
-  handleDelete = (item: ActiveItems) => {
-    alert("delete" + JSON.stringify(item));
+  handleDelete = (item: TodoItems) => {
+    axios
+      .delete(`/api/todos/${item.id}/`)
+      .then((res) => this.refreshList());
   };
 
   createItem = () => {
@@ -85,7 +107,7 @@ class App extends React.Component <any, State> {
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
 
-  editItem = (item: ActiveItems) => {
+  editItem = (item: TodoItems) => {
     this.setState({ activeItem: item, modal: !this.state.modal });
   };
 
